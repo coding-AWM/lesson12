@@ -64,8 +64,12 @@ todoControl.addEventListener('submit', function (event) {
 })
 
 const outLocalStorage = function () {
-    let noJson = localStorage.getItem('todo'); 
-    todoData = JSON.parse(noJson);      
+    if (todoData === null) {
+        todoData = [];
+    } else {
+        let noJson = localStorage.getItem('todo'); 
+        todoData = JSON.parse(noJson);      
+    }
 }
-outLocalStorage()
+outLocalStorage();
 render(); //Нужен для загрузки из LocalStorage
