@@ -4,18 +4,19 @@ const todoControl = document.querySelector('.todo-control');
 const headerInput = document.querySelector('.header-input');
 const todoList = document.querySelector('.todo-list');
 const todoCompleted = document.querySelector('.todo-completed');
-const todoData = [];
+let todoData = [];
 
 const intoLocalStorage = function () {
     let json = JSON.stringify(todoData);
-    localStorage.todo = json;
+    localStorage.setItem('todo', json)
 }
 
 const render = function () {
+
     headerInput.value = '';
     todoList.textContent = '';
     todoCompleted.textContent = '';
-    
+
     todoData.forEach(function (item) {
         const li = document.createElement('li');
         if (item.value === '') {
@@ -37,6 +38,7 @@ const render = function () {
         const btnTodoCompleted = li.querySelector('.todo-complete');
         btnTodoCompleted.addEventListener('click', function () {
             item.completed = !item.completed;
+            console.log('нажимаю');
             render();
         })
         const btnTodoRemove = li.querySelector('.todo-remove');
@@ -46,7 +48,7 @@ const render = function () {
             render();
         })
     })
-    intoLocalStorage();
+    intoLocalStorage();    
 }
 
 
@@ -61,11 +63,9 @@ todoControl.addEventListener('submit', function (event) {
     render();
 })
 
-// const outLocalStorage = function () {
-//     todoData = JSON.parse(localStorage.todo)
-//     // let noJson = localStorage.todo;
-//     // console.log('noJson: ', noJson);
-//     // todoData = JSON.parse(noJson);
-//     // console.log('todoData: ', todoData);
-// }
+const outLocalStorage = function () {
+    let noJson = localStorage.getItem('todo'); 
+    todoData = JSON.parse(noJson);      
+}
+outLocalStorage()
 render(); //Нужен для загрузки из LocalStorage
