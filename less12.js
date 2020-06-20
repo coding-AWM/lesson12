@@ -11,6 +11,17 @@ const intoLocalStorage = function () {
     localStorage.setItem('todo', json)
 }
 
+const outLocalStorage = function () {
+    if (todoData === null) {
+        todoData = [];
+    } else {
+        let noJson = localStorage.getItem('todo'); 
+        todoData = JSON.parse(noJson);      
+    }
+}
+outLocalStorage();
+console.log('outLocalStorage();: ', outLocalStorage());//тут странно. если его нет. то не работает
+
 const render = function () {
 
     headerInput.value = '';
@@ -51,8 +62,6 @@ const render = function () {
     intoLocalStorage();    
 }
 
-
-
 todoControl.addEventListener('submit', function (event) {
     event.preventDefault(); // нажатие плюсика или ввода не перезагружают страницу
     const newTodo = {
@@ -63,13 +72,4 @@ todoControl.addEventListener('submit', function (event) {
     render();
 })
 
-const outLocalStorage = function () {
-    if (todoData === null) {
-        todoData = [];
-    } else {
-        let noJson = localStorage.getItem('todo'); 
-        todoData = JSON.parse(noJson);      
-    }
-}
-outLocalStorage();
 render(); //Нужен для загрузки из LocalStorage
