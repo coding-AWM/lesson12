@@ -6,22 +6,16 @@ const todoList = document.querySelector('.todo-list');
 const todoCompleted = document.querySelector('.todo-completed');
 const todoData = [];
 
-// const todoDataTest = [
-//     {
-//         value: 'Сварить кофу',
-//         completed: false //флаги
-//     },
-//     {
-//         value: 'Отмыть свинсуду',
-//         completed: true //флаги
-//     }
-// ];
+const intoLocalStorage = function () {
+    let json = JSON.stringify(todoData);
+    localStorage.todo = json;
+}
 
 const render = function () {
     headerInput.value = '';
     todoList.textContent = '';
     todoCompleted.textContent = '';
-
+    
     todoData.forEach(function (item) {
         const li = document.createElement('li');
         if (item.value === '') {
@@ -52,7 +46,10 @@ const render = function () {
             render();
         })
     })
+    intoLocalStorage();
 }
+
+
 
 todoControl.addEventListener('submit', function (event) {
     event.preventDefault(); // нажатие плюсика или ввода не перезагружают страницу
@@ -63,4 +60,12 @@ todoControl.addEventListener('submit', function (event) {
     todoData.push(newTodo)
     render();
 })
-// render(); //Нужен для загрузки из LocalStorage
+
+// const outLocalStorage = function () {
+//     todoData = JSON.parse(localStorage.todo)
+//     // let noJson = localStorage.todo;
+//     // console.log('noJson: ', noJson);
+//     // todoData = JSON.parse(noJson);
+//     // console.log('todoData: ', todoData);
+// }
+render(); //Нужен для загрузки из LocalStorage
