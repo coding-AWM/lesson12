@@ -5,6 +5,7 @@ const headerInput = document.querySelector('.header-input');
 const todoList = document.querySelector('.todo-list');
 const todoCompleted = document.querySelector('.todo-completed');
 let todoData = [];
+let todoDataCheck = [];
 
 const intoLocalStorage = function () {
     let json = JSON.stringify(todoData);
@@ -12,15 +13,17 @@ const intoLocalStorage = function () {
 }
 
 const outLocalStorage = function () {
-    if (todoData === null) {
+    let noJson;
+    noJson = localStorage.getItem('todo'); 
+    todoDataCheck = JSON.parse(noJson);
+    if (todoDataCheck === null) {
         todoData = [];
     } else {
-        let noJson = localStorage.getItem('todo'); 
-        todoData = JSON.parse(noJson);      
+        todoData = todoDataCheck;      
     }
 }
-outLocalStorage();
-console.log('outLocalStorage();: ', outLocalStorage());//тут странно. если его нет. то не работает
+
+// console.log('outLocalStorage();: ', outLocalStorage());//тут странно. если его нет. то не работает
 
 const render = function () {
 
@@ -72,4 +75,5 @@ todoControl.addEventListener('submit', function (event) {
     render();
 })
 
+outLocalStorage();
 render(); //Нужен для загрузки из LocalStorage
